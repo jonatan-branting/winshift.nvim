@@ -9,9 +9,4 @@ function s:completion(argLead, cmdLine, curPos)
                 \ . "vim.fn.eval('a:curPos'))")
 endfunction
 
-augroup WinShift
-    au!
-    au ColorScheme * lua require("winshift.colors").setup()
-augroup END
-
 let g:winshift_nvim_loaded = 1

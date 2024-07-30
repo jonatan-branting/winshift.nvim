@@ -536,9 +536,6 @@ function M.start_move_mode()
   local key_dir_map = config.get_key_dir_map()
   M.save_win_options(cur_win)
 
-  if conf.highlight_moving_win then
-    M.highlight_win(cur_win)
-  end
   utils.set_local(cur_win, conf.moving_win_options)
   vim.cmd("redraw")
 
@@ -559,10 +556,6 @@ function M.start_move_mode()
 
   utils.clear_prompt()
 
-  if conf.highlight_moving_win then
-    vim.wo[cur_win].winhl = lasthl
-  end
-
   M.restore_win_options(cur_win)
 
   if not ok then
@@ -576,9 +569,6 @@ function M.start_swap_mode()
   local conf = config.get_config()
   M.save_win_options(cur_win)
 
-  if conf.highlight_moving_win then
-    M.highlight_win(cur_win)
-  end
   utils.set_local(cur_win, conf.moving_win_options)
   vim.cmd("redraw")
 
@@ -595,9 +585,6 @@ function M.start_swap_mode()
     M.swap_leaves(cur_leaf, target_leaf)
   end)
 
-  if conf.highlight_moving_win then
-    vim.wo[cur_win].winhl = lasthl
-  end
 
   M.restore_win_options(cur_win)
 
@@ -629,31 +616,6 @@ function M.restore_win_options(winid)
       utils.unset_local(winid, option)
     end
   end
-end
-
-function M.highlight_win(winid)
-  local curhl = vim.wo[winid].winhl
-  local hl = {
-    "Normal:WinShiftNormal",
-    "EndOfBuffer:WinShiftEndOfBuffer",
-    "LineNr:WinShiftLineNr",
-    "CursorLineNr:WinShiftCursorLineNr",
-    "SignColumn:WinShiftSignColumn",
-    "FoldColumn:WinShiftFoldColumn",
-    curhl ~= "" and curhl or nil,
-  }
-
-  if vim.fn.has("nvim-0.6") == 1 then
-    hl = utils.vec_join(
-      hl,
-      {
-        "LineNrAbove:WinShiftLineNrAbove",
-        "LineNrBelow:WinShiftLineNrBelow",
-      }
-    )
-  end
-
-  vim.wo[winid].winhl = table.concat(hl, ",")
 end
 
 return M

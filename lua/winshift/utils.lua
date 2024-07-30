@@ -264,7 +264,6 @@ end
 ---Option:remove() (seemingly for legacy reasons).
 ---WARN: This map is incomplete!
 local list_like_options = {
-  winhighlight = true,
   listchars = true,
   fillchars = true,
 }

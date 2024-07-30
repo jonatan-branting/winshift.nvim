@@ -3,7 +3,6 @@ local M = {}
 
 -- stylua: ignore start
 M.defaults = {
-  highlight_moving_win = true,
   focused_hl_group = "Visual",
   moving_win_options = {
     wrap = false,
@@ -104,8 +103,6 @@ function M.setup(user_config)
       end
     end
   end
-
-  require("winshift.colors").setup()
 end
 
 return M
